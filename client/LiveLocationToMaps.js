@@ -1,3 +1,5 @@
+LiveUsers = new Mongo.Collection("users");
+
 Meteor.startup(function() {
     GoogleMaps.load();
 });
@@ -20,4 +22,17 @@ Template.body.onCreated(function(){
             map: map.instance
         });
     });
+});
+
+Meteor.onConnection(function(connection){
+    LiveUsers.insert({ address: connection.clientAddress});
+    connection.onClose(function(){
+        LiveUsers.remove({ address: connection.clientAddress });
+    })
+});
+
+Template.LiveUsers.helpers({
+    users: function () {
+        LiveUsers.find({});
+    }
 });
