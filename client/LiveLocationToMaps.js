@@ -15,17 +15,18 @@ Template.body.helpers({
     }
 });
 
-Template.body.onCreated(function(){
-    GoogleMaps.ready('liveMap', function(map){
-        var marker = new google.maps.Marker({
-            position: map.options.center,
-            map: map.instance
-        });
-    });
-});
+// Template.body.onCreated(function(){
+//     GoogleMaps.ready('liveMap', function(map){
+//         var marker = new google.maps.Marker({
+//             position: map.options.center,
+//             map: map.instance
+//         });
+//     });
+// });
 
 Meteor.onConnection(function(connection){
     LiveUsers.insert({ address: connection.clientAddress});
+    
     connection.onClose(function(){
         LiveUsers.remove({ address: connection.clientAddress });
     })
