@@ -3,12 +3,9 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <h1>Live GeoLocation of all Users</h1>
 
-  {{> hello}}
+  <div class="map-container">  	
+  	{{> googleMap name="liveMap" options=liveMapOptions }}
+  </div>
 </body>
-
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
-</template>
