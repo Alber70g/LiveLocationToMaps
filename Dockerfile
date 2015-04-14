@@ -1,2 +1,2 @@
 FROM meteorhacks/meteord
-MAINTAINER livelocationtomaps
+MAINTAINER github/alber70g github/wolfert
