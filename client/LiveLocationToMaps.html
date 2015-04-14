@@ -6,18 +6,18 @@
 <body>
   <h1>Live GeoLocation of all Users</h1>
 
-  {{ > LiveUsers }}
+  {{ > users }}
 
   <div class="map-container">
   	{{> googleMap name="liveMap" options=liveMapOptions }}
   </div>
 </body>
 
-<template name="LiveUsers">
+<template name="users">
 	<h1>Users</h1>
 	<ul>
 	{{#each users }}
-		<li>{{address}}</li>
+		<li>{{_id}}</li>
 	{{/each}}
 	</ul>
 </template>

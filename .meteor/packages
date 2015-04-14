@@ -22,3 +22,7 @@ jquery
 random
 ejson
 mongo
+mdg:geolocation
+accounts-base
+accounts-password
+artwells:accounts-guest

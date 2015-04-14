@@ -1,5 +1,3 @@
-LiveUsers = new Mongo.Collection("users");
-
 Meteor.startup(function() {
     GoogleMaps.load();
 });
@@ -15,25 +13,31 @@ Template.body.helpers({
     }
 });
 
-// Template.body.onCreated(function(){
-//     GoogleMaps.ready('liveMap', function(map){
-//         var marker = new google.maps.Marker({
-//             position: map.options.center,
-//             map: map.instance
-//         });
-//     });
-// });
-
-Meteor.onConnection(function(connection){
-    LiveUsers.insert({ address: connection.clientAddress});
-    
-    connection.onClose(function(){
-        LiveUsers.remove({ address: connection.clientAddress });
-    })
+Template.body.onCreated(function(){
+    GoogleMaps.ready('liveMap', function(map){
+        var marker = new google.maps.Marker({
+            position: map.options.center,
+            map: map.instance
+        });
+    });
 });
 
-Template.LiveUsers.helpers({
+Template.liveMap.rendered = function () {
+    var position = Geolocation.latLng();
+    var currentUser = Meteor.users.findOne({ _id: Meteor.user()._id });
+    currentUser.position = position;
+    
+    Meteor.users.update({_id:Meteor.user()._id}, currentUser);
+};
+
+Template.body.events({
+    'click': function () {
+        
+    }
+});
+
+Template.users.helpers({
     users: function () {
-        LiveUsers.find({});
+        return Meteor.users.find({});
     }
 });
